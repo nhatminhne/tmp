@@ -35,6 +35,7 @@ import {
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { FaHandshake } from "react-icons/fa";
 import { FcShare, FcDonate, FcMoneyTransfer } from "react-icons/fc";
+import { ComboBox } from "@components/comboBox";
 
 // export async function getServerSideProps(context) {
 // const campaigns = await factory.methods.getDeployedCampaigns().call();
@@ -211,54 +212,21 @@ export const CampaignCard: React.FC<{
     );
 };
 
-export default function Home(
-    {
-        /*campaign*/
-    },
-) {
+export default function Home() {
     const [campaignList, setCampaignList] = useState([
-        {id: 0, balance: 1, date: "1/2/2022", stuff2: "", creatorId: 111, name: "two", description: "kkkkkkkk", imageURL: "", target: 11, verified: true},
-        {id: 0, balance: 1, date: "1/11/2022", stuff2: "", creatorId: 111, name: "eleven", description: "kkkkkkkk", imageURL: "", target: 11, verified: false},
-        {id: 0, balance: 1, date: "1/3/2022", stuff2: "", creatorId: 111, name: "there", description: "kkkkkkkk", imageURL: "", target: 11, verified: true},
-        {id: 0, balance: 1, date: "1/5/2022", stuff2: "", creatorId: 111, name: "five", description: "kkkkkkkk", imageURL: "", target: 11, verified: false},
-        {id: 0, balance: 1, date: "1/9/2022", stuff2: "", creatorId: 111, name: "nine", description: "kkkkkkkk", imageURL: "", target: 11, verified: true},
-        {id: 0, balance: 1, date: "1/4/2022", stuff2: "", creatorId: 111, name: "four", description: "kkkkkkkk", imageURL: "", target: 11, verified: false},
-        {id: 0, balance: 1, date: "1/1/2022", stuff2: "", creatorId: 111, name: "one", description: "kkkkkkkk", imageURL: "", target: 11, verified: true},
-        {id: 0, balance: 1, date: "1/7/2022", stuff2: "", creatorId: 111, name: "seven", description: "kkkkkkkk", imageURL: "", target: 11, verified: false},
-        {id: 0, balance: 1, date: "1/10/2022", stuff2: "", creatorId: 111, name: "ten", description: "kkkkkkkk", imageURL: "", target: 11, verified: true},
-        {id: 0, balance: 1, date: "1/8/2022", stuff2: "", creatorId: 111, name: "eight", description: "kkkkkkkk", imageURL: "", target: 11, verified: false},
-        {id: 0, balance: 1, date: "1/6/2022", stuff2: "", creatorId: 111, name: "six", description: "kkkkkkkk", imageURL: "", target: 11, verified: true},
+        {id: 0, balance: 0, date: "1/2/2022", stuff2: "", creatorId: 111, name: "two", description: "kkkkkkkk", imageURL: "", target: 10, verified: true},
+        {id: 0, balance: 1, date: "1/11/2022", stuff2: "", creatorId: 111, name: "eleven", description: "kkkkkkkk", imageURL: "", target: 9, verified: false},
+        {id: 0, balance: 2, date: "1/3/2022", stuff2: "", creatorId: 111, name: "there", description: "kkkkkkkk", imageURL: "", target: 8, verified: true},
+        {id: 0, balance: 3, date: "1/5/2022", stuff2: "", creatorId: 111, name: "five", description: "kkkkkkkk", imageURL: "", target: 7, verified: false},
+        {id: 0, balance: 4, date: "1/9/2022", stuff2: "", creatorId: 111, name: "nine", description: "kkkkkkkk", imageURL: "", target: 6, verified: true},
+        {id: 0, balance: 5, date: "1/4/2022", stuff2: "", creatorId: 111, name: "four", description: "kkkkkkkk", imageURL: "", target: 5, verified: false},
+        {id: 0, balance: 6, date: "1/1/2022", stuff2: "", creatorId: 111, name: "one", description: "kkkkkkkk", imageURL: "", target: 4, verified: true},
+        {id: 0, balance: 7, date: "1/7/2022", stuff2: "", creatorId: 111, name: "seven", description: "kkkkkkkk", imageURL: "", target: 3, verified: false},
+        {id: 0, balance: 8, date: "1/10/2022", stuff2: "", creatorId: 111, name: "ten", description: "kkkkkkkk", imageURL: "", target: 2, verified: true},
+        {id: 0, balance: 9, date: "1/8/2022", stuff2: "", creatorId: 111, name: "eight", description: "kkkkkkkk", imageURL: "", target: 1, verified: false},
+        {id: 0, balance: 10, date: "1/6/2022", stuff2: "", creatorId: 111, name: "six", description: "kkkkkkkk", imageURL: "", target: 0, verified: true},
     ]);
-    const [ethPrice, updateEthPrice] = useState(null);
-    const [value, setValue] = useState("");
-    const [change, setChange] = useState(false)
-    const [campaignListFilter, setCampaignListFilter] = useState([])
-    /**
-                                                name={el[5]}
-                                                description={el[6]}
-                                                creatorId={el[4]}
-                                                imageURL={el[7]}
-                                                id={campaigns[i]}
-                                                target={el[8]}
-                                                balance={el[1]}
-                                                ethPrice={ethPrice} */
-
-    async function getSummary() {
-        // try {
-        //   const summary = await Promise.all(
-        //     campaigns.map((campaign, i) =>
-        //       Campaign(campaigns[i]).methods.getSummary().call()
-        //     )
-        //   );
-        //   const ETHPrice = await getETHPrice();
-        //   updateEthPrice(ETHPrice);
-        //   console.log("summary ", summary);
-        //   setCampaignList(summary);
-        //   return summary;
-        // } catch (e) {
-        //   console.log(e);
-        // }
-    }
+    
     useEffect(() => {
         const providerCheck = async () => {
             const provider = await detectEthereumProvider();
@@ -270,43 +238,6 @@ export default function Home(
         };
         providerCheck();
     }, []);
-
-    useEffect(() => {
-        getSummary();
-        //const tmp = campaignList.map((el) => el)
-        //setCampaignListFilter(tmp)
-    }, []);
-
-    useEffect(() => {
-        if(value == "Latest_Campaigns") {
-            setCampaignListFilter(campaignList)
-            const tmp = campaignListFilter.sort((b, a) =>
-                //a.date.split('/').reverse().join().localeCompare(b.date.split('/').reverse().join())
-                Date.parse(a.date) - Date.parse(b.date)
-            ); 
-            //console.log("tmp: ",tmp)
-        } else if(value == "Top_10_Campaigns") {
-            setCampaignListFilter(campaignList)
-            const tmp = campaignListFilter.sort((b, a) =>
-                Date.parse(a.date) - Date.parse(b.date)
-            ); 
-        } else if(value == "Verified_Campaigns") {
-            setCampaignListFilter(campaignList)
-            const tmp = campaignList.filter( a =>
-                a.verified == true
-            ); 
-            setCampaignListFilter(tmp)
-        }
-        else {
-            console.log("check")
-            const tmp = campaignList.map((el) => el)
-            setCampaignListFilter(tmp)
-        }
-        setChange(false)
-    }, [value]);
-    console.log("value: ", value)
-    console.log("change: ", change)
-    console.log("default: ", campaignList)
 
     return (
         <div>
@@ -363,84 +294,10 @@ export default function Home(
                         </Button>
                     </NextLink>
                 </Container>
-                <Container py={{ base: "4", md: "12" }} maxW={"7xl"}>
-                    <div 
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <HStack spacing={2}
-                            style={{
-                                flexDirection: "row",
-                                width: "300%"
-                            }}
-                        >
-                            <SkeletonCircle size="4" />
-                            <Heading as="h2" size="lg">
-                                Open Campaigns
-                            </Heading>
-                        </HStack>
-                        <Select 
-                            placeholder='Filter Campaign'
-                            style={{
-                                flexDirection: "row",
-                                width: "100%",
-                                alignItems: "right"
-                            }}
-                            value={value}
-                            onChange={(e:any) => 
-                                {setValue(e.target.value)
-        setChange(true)
-                            }}
-                        >
-                        <option value='Latest_Campaigns'>Latest Campaigns</option>    
-                        <option value='Top_10_Campaigns'>Top 10 Campaigns</option>
-                        <option value='Verified_Campaigns'>Verified Campaigns</option>
-                        </Select>
-                    </div>
-
-                    <Divider marginTop="4" />
-
-                    {campaignList.length > 0 ? (
-                        <SimpleGrid
-                            columns={{ base: 1, md: 3 }}
-                            spacing={10}
-                            py={8}
-                        >
-                            {!change ? (
-                                campaignListFilter.map((el, i) => {
-                                    console.log("filter: ", campaignListFilter)
-                                        return (
-                                            <div key={i}>
-                                                <CampaignCard
-                                                    name={el.name}
-                                                    description={el.description}
-                                                    creatorId={el.creatorId}
-                                                    imageURL={el.imageURL}
-                                                    id={/*campaigns[i]*/ 0}
-                                                    target={el.target}
-                                                    balance={el.balance}
-                                                    ethPrice={ethPrice}
-                                                />
-                                            </div>
-                                    
-                                )})
-                            ) : null}
-                            
-                        </SimpleGrid>
-                    ) : (
-                        <SimpleGrid
-                            columns={{ base: 1, md: 3 }}
-                            spacing={10}
-                            py={8}
-                        >
-                            <Skeleton height="25rem" />
-                            <Skeleton height="25rem" />
-                            <Skeleton height="25rem" />
-                        </SimpleGrid>
-                    )}
-                </Container>
+                <ComboBox 
+                    campaigns={campaignList}
+                    top10={"target"}
+                />
                 <Container
                     py={{ base: "4", md: "12" }}
                     maxW={"7xl"}
