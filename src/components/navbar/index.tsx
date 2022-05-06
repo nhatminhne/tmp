@@ -245,7 +245,8 @@ export const NavBar: React.FC = () => {
                             right="0"
                             overflowY="auto"
                             flexDir="column"
-                            display={display}
+                            display={{ base:display, md: "none" }}
+                            shadow="lg"
                         >
                             <Flex justify="flex-end">
                                 <IconButton
